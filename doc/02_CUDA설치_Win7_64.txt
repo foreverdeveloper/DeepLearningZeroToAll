@@ -1,5 +1,55 @@
-tensorflow 설치 - https://www.tensorflow.org/
+tensorflow 설치 - https://www.tensorflow.org/install/install_windows
+	https://www.youtube.com/user/NVIDIADeveloper/videos
+
+
+1. CUDA 설치 메뉴얼 : (자세한 스펙은 메뉴얼 참조), Windows 7 - 64비트 기준
+	https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/
 ----------------------------------------------------------------
+시스템 요구사항
+	Visual Studio Community 2015 - - Native x86_64
+	Visual Studio 2013 - Native x86_64 , Cross (x86_32 on x86_64) - 선택
+	Visual Studio 2012 - Native x86_64 , Cross (x86_32 on x86_64)
+	설치 후, 리부팅
+
+GPU 지원하는지 체크 - Compute Capability
+	컴퓨터 모델 체크: control /name Microsoft.DeviceManager
+	https://developer.nvidia.com/cuda-gpus
+	예) CUDA-Enabled GeForce Products - 링크 클릭하여 모델 체크
+		GeForce GTX 765M - Compute Capability : 3.0 지원
+		GeForce GTX 960M - 5.0
+		GeForce GTX 1050 - 6.1 지원
+
+NVIDIA CUDA Toolkit 다운로드
+	http://developer.nvidia.com/cuda-downloads
+		체크섬 확인 : http://developer.nvidia.com/cuda-downloads/checksums
+				cuda_9.2.148_windows.exe	- c98dbd359e63a0770d861ae88e07c3af
+				http://www.winmd5.com/  유틸로 체크섬 확인함.
+
+NVIDIA CUDA Toolkit 설치
+	모두 체크하고 설치 진행.
+	컴퓨터 재시작함.
+
+예제 컴파일 실행
+	C:\ProgramData\NVIDIA Corporation\CUDA Samples\v9.2\
+		0_Simple\matrixMul\matrixMul_vs2013.sln 파일을 열어서 빌드 후, 실행
+		확인
+
+----------------------------------------------------------------//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Python 3.6 - 64 bit 다운로드
 	https://www.python.org/downloads/release/python-362/
 
@@ -13,10 +63,11 @@ PATH 환경변수를 잡는다.
         %PYTHON%\Scripts
 
 C:\> python -m pip install --upgrade pip
-
-
-설치방식 선택 1/2 : CPU 버전
+설치방식 1 : CPU 버전
 C:\> pip3 install --upgrade tensorflow
+
+설치방식 2 : GPU 버전 (GPU설치법 참고)
+C:\> pip3 install --upgrade tensorflow-gpu
 -------------------------------------------------- 설치 과정
 Requirement already up-to-date: tensorflow in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (1.9.0)
 Requirement not upgraded as not directly required: protobuf>=3.4.0 in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (from tensorflow) (3.6.0)
@@ -34,11 +85,6 @@ Requirement not upgraded as not directly required: markdown>=2.6.8 in c:\users\n
 Requirement not upgraded as not directly required: werkzeug>=0.11.10 in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (from tensorboard<1.10.0,>=1.9.0->tensorflow) (0.14.1)
 
 --------------------------------------------------//// 설치 과정
-
-
-설치방식 선택 2/2 : GPU 버전 (CUDA 사전 설치 요구함)
-C:\> pip3 install --upgrade tensorflow-gpu
-
 
 
 ----------------------------------------------------------------////
