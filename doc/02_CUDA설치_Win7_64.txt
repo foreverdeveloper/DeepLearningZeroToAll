@@ -33,9 +33,23 @@ NVIDIA CUDA Toolkit 설치
 	C:\ProgramData\NVIDIA Corporation\CUDA Samples\v9.2\
 		0_Simple\matrixMul\matrixMul_vs2013.sln 파일을 열어서 빌드 후, 실행
 		확인
+----------------------------------------------------------------//
+
+
+2. cuDNN 설치 - 회원가입 필요함
+	https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html#install-windows
+----------------------------------------------------------------
+	https://developer.nvidia.com/rdp/cudnn-download
+	cuDNN v7.1.4 Library for Windows 7
+	압축을 푼 후,
+	CUDA Toolkit 디렉터리에 복사
+		C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2
 
 ----------------------------------------------------------------//
 
+기타 : 에러 사항
+	ImportError : Could not find 'cudart64_90.dll'
+		'cudart64_92.dll' 은 존재함
 
 
 
