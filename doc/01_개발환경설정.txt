@@ -16,7 +16,7 @@ C:\> python -m pip install --upgrade pip
 설치방식 1 : CPU 버전
 C:\> pip3 install --upgrade tensorflow
 
-설치방식 2 : GPU 버전
+설치방식 2 : GPU 버전 (GPU설치법 참고)
 C:\> pip3 install --upgrade tensorflow-gpu
 -------------------------------------------------- 설치 과정
 Requirement already up-to-date: tensorflow in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (1.9.0)
