@@ -47,10 +47,10 @@ NVIDIA CUDA Toolkit 설치
 
 ----------------------------------------------------------------//
 
-기타 : 에러 사항
+기타 : 에러 사항 - https://github.com/tensorflow/tensorflow/issues/
 	ImportError : Could not find 'cudart64_90.dll'
 		'cudart64_92.dll' 은 존재함
-
+	->
 
 
 
