@@ -4,6 +4,7 @@ tensorflow 설치 - https://www.tensorflow.org/install/install_windows
 
 1. CUDA 설치 메뉴얼 : (자세한 스펙은 메뉴얼 참조), Windows 7 - 64비트 기준
 	https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/
+	https://developer.nvidia.com/cuda-90-download-archive?target_os=Windows&target_arch=x86_64&target_version=7&target_type=exelocal
 ----------------------------------------------------------------
 시스템 요구사항
 	Visual Studio Community 2015 - - Native x86_64
@@ -22,17 +23,16 @@ GPU 지원하는지 체크 - Compute Capability
 NVIDIA CUDA Toolkit 다운로드
 	http://developer.nvidia.com/cuda-downloads
 		체크섬 확인 : http://developer.nvidia.com/cuda-downloads/checksums
-				cuda_9.2.148_windows.exe	- c98dbd359e63a0770d861ae88e07c3af
-				http://www.winmd5.com/  유틸로 체크섬 확인함.
+				cuda_9.0.176_windows.exe	- 48d85427ddb4c0eae8ee46aea9d3126e
+				http://www.winmd5.com/  유틸로 체크섬 확인함.(선택)
 
 NVIDIA CUDA Toolkit 설치
 	모두 체크하고 설치 진행.
 	컴퓨터 재시작함.
 
 예제 컴파일 실행
-	C:\ProgramData\NVIDIA Corporation\CUDA Samples\v9.2\
-		0_Simple\matrixMul\matrixMul_vs2013.sln 파일을 열어서 빌드 후, 실행
-		확인
+	C:\ProgramData\NVIDIA Corporation\CUDA Samples\v9.0\
+		0_Simple\matrixMul\matrixMul_vs2013.sln 파일을 열어서 빌드 후, 실행 확인
 ----------------------------------------------------------------//
 
 
@@ -40,93 +40,9 @@ NVIDIA CUDA Toolkit 설치
 	https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html#install-windows
 ----------------------------------------------------------------
 	https://developer.nvidia.com/rdp/cudnn-download
-	cuDNN v7.1.4 Library for Windows 7
+	cudnn-9.0-windows7-x64-v7.1
 	압축을 푼 후,
 	CUDA Toolkit 디렉터리에 복사
-		C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2
+		C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0
 
 ----------------------------------------------------------------//
-
-기타 : 에러 사항 - https://github.com/tensorflow/tensorflow/issues/
-	ImportError : Could not find 'cudart64_90.dll'
-		'cudart64_92.dll' 은 존재함
-	->
-
-
-
-
-
-
-
-
-
-
-
-
-
-Python 3.6 - 64 bit 다운로드
-	https://www.python.org/downloads/release/python-362/
-
-PATH 환경변수를 잡는다.
-  윈도우:
-    PYTHON
-    	c:\Users\noodlework\AppData\Local\Programs\Python\Python36\
-
-    PATH에 추가
-        %PYTHON%
-        %PYTHON%\Scripts
-
-C:\> python -m pip install --upgrade pip
-설치방식 1 : CPU 버전
-C:\> pip3 install --upgrade tensorflow
-
-설치방식 2 : GPU 버전 (GPU설치법 참고)
-C:\> pip3 install --upgrade tensorflow-gpu
--------------------------------------------------- 설치 과정
-Requirement already up-to-date: tensorflow in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (1.9.0)
-Requirement not upgraded as not directly required: protobuf>=3.4.0 in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (from tensorflow) (3.6.0)
-Requirement not upgraded as not directly required: numpy>=1.13.3 in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (from tensorflow) (1.14.5)
-Requirement not upgraded as not directly required: grpcio>=1.8.6 in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (from tensorflow) (1.13.0)
-Requirement not upgraded as not directly required: gast>=0.2.0 in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (from tensorflow) (0.2.0)
-Requirement not upgraded as not directly required: absl-py>=0.1.6 in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (from tensorflow) (0.2.2)
-Requirement not upgraded as not directly required: setuptools<=39.1.0 in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (from tensorflow) (39.1.0)
-Requirement not upgraded as not directly required: termcolor>=1.1.0 in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (from tensorflow) (1.1.0)
-Requirement not upgraded as not directly required: astor>=0.6.0 in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (from tensorflow) (0.7.1)
-Requirement not upgraded as not directly required: wheel>=0.26 in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (from tensorflow) (0.31.1)
-Requirement not upgraded as not directly required: six>=1.10.0 in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (from tensorflow) (1.11.0)
-Requirement not upgraded as not directly required: tensorboard<1.10.0,>=1.9.0 in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (from tensorflow) (1.9.0)
-Requirement not upgraded as not directly required: markdown>=2.6.8 in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (from tensorboard<1.10.0,>=1.9.0->tensorflow) (2.6.11)
-Requirement not upgraded as not directly required: werkzeug>=0.11.10 in c:\users\noodlework\appdata\local\programs\python\python36\lib\site-packages (from tensorboard<1.10.0,>=1.9.0->tensorflow) (0.14.1)
-
---------------------------------------------------//// 설치 과정
-
-
-----------------------------------------------------------------////
-참고: 이클립스
-	github 다운 이후, 일반 프로젝트를 Python 프로젝트로 만들기
-	  프로젝트 선택 > PyDev > Set as PyDev Project
-
-추가 라이브러리
-----------------------------------------------------------------////
-# pip install matplotlib
-
-
-
-
-----------------------------------------------------------------////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
