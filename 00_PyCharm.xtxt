@@ -1,0 +1,39 @@
+File > Settings > Editor > Color & Font > Font
+    Primary Font , Cosole Font
+        Monospaced -> Consolas 로 변경.
+            Size: 16
+
+하단의 Python Console 활용
+
+
+단축키
+-------------------------------------------------------------------------------
+윈도우 선택
+    Alt + 1 : 윈도우 Project 창
+    Alt + F12 : Terminal
+
+찾기
+    F3 : 다중 선택
+
+편집
+    Ctrl + W : 단어 선택
+    Ctrl + / : 주석
+
+파일
+    Alt + Insert : 신규 파일 만들기
+    Ctrl + Y : 라인 삭제
+    Ctrl + D : 라인 복사
+    Ctrl + Shift + 위/아래 : 해당 내용 위/아래로 이동
+
+북마크
+    F11 : 북마크 추가 -  Shift +F11 : 북마크 리스트 확인
+
+
+실행
+    Ctrl + Shift + F10 : 해당 소스 실행 (편집창 우클릭 후, Run 소스)
+
+
+
+-------------------------------------------------------------------------------//
+
+
