@@ -142,23 +142,69 @@ hypothesis = W * x_data + b
 #    tf.reduce_mean() - 합계 코드가 보이지 않아도 평균을 위해 내부적으로 합계 계산. 결과값은 실수 1개.
 # Simplified cost function
 cost = tf.reduce_mean(tf.square(hypothesis - y_data))
+print('cost ==> ', cost)
 
+
+# learning rate라고 부르는 값이 있는데, 완전, 완전, 완전 중요하다.
+# 이 값을 자동으로 알아낼 수는 없고, 여러 번에 걸쳐 테스트하면서 적절한 값을 찾아야 한다.
+# 여기서는 0.1을 사용하고 있다. 이때 0.1이 적용되는 대상은 기울기에 해당하는 W이다.
+# 나중에 그래프가 나올 때 확인할 수 있다.
+# 김성훈 교수님께서 엄청나게 강조하시는 gradient descent 알고리듬을 구현한 코드가
+# tf.train.GradientDescentOptimizer 함수이다.
+# 단어 뜻 그대로 "경사타고 내려가기"라는 미분을 통해 최저 비용을 향해 진행하도록 만드는 핵심 함수이다.
+# 이때 rate를 전달했기 때문에 매번 0.1 만큼씩 내려가게 된다. W축에 대해서.
+# minimize 함수는 글자 그대로 최소 비용을 찾아주는 함수라고 생각하면 된다.
+# 그러나, 정확하게는 gradient descent 알고리듬에서 gradients를 계산해서 변수에 적용하는 일을 동시에 하는 함수다.
+# W와 b를 적절하게 계산해서 변경하는 역할을 하는데, 그 진행 방향이 cost가 작아지는 쪽이라는 뜻이다.
+#
+# 이 코드에서 정말 중요한 것은 train 텐서에 연결된 것이 정말 많다는 것이다. optimizer는 직접 연결되었고,
+# optimizer에는 cost와 rate가 연결되었으니까 이들은 한 다리 걸쳐 연결되었고,
+# cost에는 reduce_mean과 square 함수를 통해 (hypothesis - y_data)의 결과가 두 다리 걸쳐 연결되었고,
+# hypothesis는 W, x_data, b와 연결되었으므로 세 다리 걸쳐 연결된 상태라는 것이다.
+# 그래서, train을 구한다는 것은 이 모든 연결된 객체들을 계산한다는 것과 같은 뜻이 된다.
+#
 # minimize
 rate = tf.Variable(0.1)  # learning rate, alpha
-optimizer = tf.train.GradientDescentOptimizer(rate)
+optimizer = tf.train.GradientDescentOptimizer(rate) # ★
 train = optimizer.minimize(cost)
 
+# 텐서플로우를 구동하기 위해서는 그래프에 연결된 모든 변수를 초기화해야 한다.
+# 이 코드는 run 함수를 호출하기 전에 나와야 한다.
+# tf.initialize_all_variables()는 initialize_variables(all_variables())의 축약된 표현으로
+# 전달된 변수들을 초기화하는 연산(op)을 반환하는 함수로, 여기서는 init 변수가 초기화 operations에 해당한다.
+#
 # before starting, initialize the variables. We will 'run' this first.
 init = tf.initialize_all_variables()
 
+# 세션을 만들고, 앞에서 초기화한 변수들을 run 함수에 넣고 구동했다. init에 포함된 모든 텐서를 평가한다.
+# (0.12버전에서 initialize_all_variables 함수 대신 global_variables_initializer 함수로 바뀌었다.)
+#
 # launch the graph
 sess = tf.Session()
 sess.run(init)
 
+# range 함수는 매개변수가 생략될 경우, 0부터 시작하고 2001은 포함하지 않으므로,
+# 0에서 2000까지 2001번 반복하는 코드이다.
+# 출력이 너무 많이 발생하는 관계로 20번에 한 번씩만 출력하도록 조절하고 있다.
+# 반복문 바로 밑에서 sess.run(train) 함수를 호출해서, 앞서 설명한 모든 관련된 텐서들을 계산한다.
+# 이렇게 계산한 결과는 print 함수를 통해 화면에 출력한다.
+# 이미 계산된 결과임에도 불구하고 run 함수를 통해 확인해야 하는 것은 불편한 일일 뿐더러
+# 다시 한번 run 함수를 호출해야 하므로 성능저하의 원인처럼 보여질 수도 있다.
+# 여기서는 진행 결과를 보여줘야 하기 때문에 호출하는 것이고,
+# 출력 횟수 자체를 100 또는 1000으로 지정하면 추가 계산을 최소한으로 유지할 수 있기 때문에
+# 성능저하라고 볼 수는 없다.
+# 특히, 이 부분은 학습을 하는 과정이기 때문에 모델을 구축한 이후에는 예측(prediction)에 관여하지 않기 때문에
+# 문제가 되지 않는다. 참.. W와 b는 학습 과정에서 전혀 출력할 이유가 없고, cost가 줄어드는 것만으로 충분하다.
+#
 # fit the line
 for step in range(2001):
+    if step == 0:
+        print('step     cost    [W]       [b]')
+        print('------------------------------------------------------------')
+
     sess.run(train)
-    if step % 20 == 0:
+    # if step % 20 == 0:
+    if step % 200 == 0:
         print('{:4} {} {} {}'.format(step, sess.run(cost), sess.run(W), sess.run(b)))
 
 # learns best fit is W: [1] b: [0]
@@ -182,3 +228,69 @@ for step in range(2001):
 2000 0.0 [1.] [5.64103e-08]
 
 '''
+
+
+'''
+placeholder를 사용한 버전의 코드
+
+
+'''
+
+#
+# import tensorflow as tf
+print('==========================================================================================')
+print('placeholder를 사용한 버전의 코드')
+
+# x_data와 y_data를 각가 4개씩으로 하고 y_data의 값이 x_data의 두 배가 되도록 했다.
+#
+x_data = [1., 2., 3., 4.]
+y_data = [2., 4., 6., 8.]
+
+# 기울기(W)와 y 절편(b)의 값은 -10에서 10까지의 숫자로 조금 크게 했고,
+# 이들을 받을 hypothesis를 구성했다.
+# hypothesis에서 예전에는 x_data라는 상수 데이터(바뀌지 않기 때문에)를 사용했다면
+#
+# range is -100 ~ 100
+W = tf.Variable(tf.random_uniform([1], -100., 100.))
+b = tf.Variable(tf.random_uniform([1], -100., 100.))
+
+# 이제는 언제든지 다른 데이터를 전달할 수 있도록 placeholder X를 사용하고 있다.
+# cost를 계산하는 코드에서도 y_data 대신 placeholder Y를 전달했다.
+X = tf.placeholder(tf.float32)
+Y = tf.placeholder(tf.float32)
+
+hypothesis = W * X + b
+
+cost = tf.reduce_mean(tf.square(hypothesis - Y))
+
+rate = tf.Variable(0.1)
+optimizer = tf.train.GradientDescentOptimizer(rate)
+train = optimizer.minimize(cost)
+
+init = tf.initialize_all_variables()
+
+sess = tf.Session()
+sess.run(init)
+
+# for문 안쪽에서 X, Y에 대해 x_data, y_data를 전달하는 코드가 보인다.
+# 여기까지만 보면 X, Y를 만든 이유가 없다.
+# 그러나, for문 바깥에서 X에 새로운 데이터를 넣어서 구동하는 코드가 중요하다.
+# 우리의 목적은 비용을 최소로 만드는 기울기(W)와 y절편(b)를 구하는 것이었고,
+# 이 값들은 hypothesis에 공식과 함께 저장되어 있다.
+# X를 전달하면 Y를 결과값으로 알려준다.
+# 5나 2.5처럼 한 개를 전달해도 되고 [2.5, 5]처럼 여러 개를 전달해도 된다.
+# 5는 1x1, [2.5, 5]는 1x2 크기의 행렬이다.
+#
+for step in range(2001):
+    if step == 0:
+        print('step     cost    [W]       [b]')
+        print('------------------------------------------------------------')
+
+    sess.run(train, feed_dict={X: x_data, Y: y_data})
+    if step % 200 == 0:
+        print(step, sess.run(cost, feed_dict={X: x_data, Y: y_data}), sess.run(W), sess.run(b))
+
+print(sess.run(hypothesis, feed_dict={X: 5}))           # [ 10.]
+print(sess.run(hypothesis, feed_dict={X: 2.5}))         # [5.]
+print(sess.run(hypothesis, feed_dict={X: [2.5, 5]}))    # [  5.  10.], 원하는 X의 값만큼 전달.
+
